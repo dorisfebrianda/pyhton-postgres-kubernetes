@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask
+spec:
+  selector:
+    matchLabels:
+      app: flask
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:
+      containers:
+      - image: dorisfebrianda93/dorisflask:latest
+        name: flask-test
+        env:
+        - name: PG_URI
+          value: postgresql://user:mysecretpassword@postgres:5432/url_shortener_db
+        - name: PG_PORT
+          value: "5432"
+        - name: PG_DB
+          value: url_shortener_db
+        - name: PG_USER
+          value: user
+        - name: PG_PASSWORD
+          value: mysecretpassword
+        ports:
+        - containerPort: 5000
